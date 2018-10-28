@@ -86,7 +86,7 @@
       <script id="icon_template" type="text/template">
         <ons-row style="height:120px" vertical-align="center">  
         <% categories.forEach(function(category){%>  
-        <ons-col style="border:solid 1px white; background:#006666;" width="33%"  onclick="changeTab('<%= category.name %>')">
+        <ons-col style="border:solid 1px white; border-bottom: 6px solid red; border-radius: 10px; background-color: lightgrey; background:#006666;" width="33%"  onclick="changeTab('<%= category.name %>')">
           <p  style="text-align: center; margin: 10px;">
             <ons-icon size="60px" icon="<%= category.icon %>"></ons-icon>
           </p>
@@ -106,13 +106,14 @@
     <ons-page id="Tab2">
       <ons-list>
         <ons-list-header>Shopping Cart</ons-list-header>
+        <% categories.forEach(function(category){%> 
         <ons-list-item>
           <div class="left">
-            <img class="list-item__thumbnail" src="images/item1.jpg">
+            <img class="list-item__thumbnail" src="<%= category.name %>">
           </div>
           <div class="center">
-            <span class="list-item__title">Apple Watch Series 3 GPS 42mm Grey</span>
-            <span class="list-item__subtitle" style="color: blue">฿12,650.00</span>
+            <span class="list-item__title"><%= category.name %></span>
+            <span class="list-item__subtitle" style="color: blue"><%= category.name %></span>
           </div>
           <div class="right">
             <p style="text-align: center; margin: 10px;">
@@ -120,34 +121,7 @@
             </p>
           </div>
         </ons-list-item>
-        <ons-list-item>
-          <div class="left">
-            <img class="list-item__thumbnail" src="images/item2.jpg">
-          </div>
-          <div class="center">
-            <span class="list-item__title">MICROLAB SPEAKER 2.1</span>
-            <span class="list-item__subtitle" style="color: blue">฿1,570.00</span>
-          </div>
-          <div class="right">
-            <p style="text-align: center; margin: 10px;">
-              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
-            </p>
-          </div>
-        </ons-list-item>
-        <ons-list-item>
-          <div class="left">
-            <img class="list-item__thumbnail" src="images/item3.jpg">
-          </div>
-          <div class="center">
-            <span class="list-item__title">Nike Air Max 90 ดำเทาแดง เบอร์ 40</span>
-            <span class="list-item__subtitle" style="color: blue">฿2,990.00</span>
-          </div>
-          <div class="right">
-            <p style="text-align: center; margin: 10px;">
-              <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
-            </p>
-          </div>
-        </ons-list-item>
+        <%});%>
       </ons-list>
       <p style="text-align: center; margin: 10px;">
         <ons-button modifier="large">PROCEED TO PAY</ons-button>
@@ -195,6 +169,41 @@
     </ons-page>
   </template>
 
+  <template id="tab4.html">
+      <ons-page id="Tab4">
+            <hr>
+
+            <div id="detail"></div>
+          
+          
+         <script id="detail_template" type="text/template"> <ons-row>
+        <% detail.forEach(function(allP){
+          var item = detail.data();
+          %>  
+          <ons-col width="33%">
+            <ons-card>
+              <img src="" alt="Onsen UI" style="width: 100%" style="height: 70px">
+              <div class="title">
+                <%=item.title%>
+              </div>
+              <div class="content" id="Pdetail">
+                Price: <%= item.price %>
+              </div>
+            </ons-card>
+          </ons-col>
+          <%});%>
+        </script>
+  
+      </ons-row>
+        <p style="text-align: center; margin: 10px;">
+          <ons-button modifier="large" onclick="addNewData();">
+            Add New Data
+          </ons-button>
+        </p>
+  
+      </ons-page>
+    </template>
+
 
 
 </body>
@@ -218,8 +227,7 @@
       }else{
         getAllproduct(name);
       }localStorage.clear();
-      // get data for cart screen  
-      
+      // get data for cart screen      
     }
   });
 
@@ -263,6 +271,35 @@
   }
 
   function getAllproduct(name) {
+   if(name==null){
+    var allProductRef = db.collection("PRODUCTS")
+    allProductRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var allP_template = $('#allP_template').html();
+      console.log(querySnapshot);
+      var html = ejs.render(allP_template, { allP: querySnapshot.docs });
+      
+      $('#allP').html(html);
+        console.log(doc.id, " => ", doc.data());
+      });
+    });
+  }else{localStorage.clear();
+    console.log(name);
+    var allProductRef = db.collection("PRODUCTS").where("category","==",name)
+    allProductRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var allP_template = $('#allP_template').html();
+      console.log(querySnapshot);
+      var html = ejs.render(allP_template, { allP: querySnapshot.docs });
+      
+      $('#allP').html(html);
+        console.log(doc.id, " => ", doc.data());
+      });
+    });
+  }
+  }
+
+  function getDetail(name) {
    if(name==null){
     var allProductRef = db.collection("PRODUCTS")
     allProductRef.get().then(function (querySnapshot) {
