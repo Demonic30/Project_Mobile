@@ -145,7 +145,7 @@
       <% allP.forEach(function(allP){
         var item = allP.data();
         %>  
-        <ons-col width="33%">
+        <ons-col width="33%" onclick="getDetail('<%=item.title%>');">
           <ons-card>
             <img src="" alt="Onsen UI" style="width: 100%" style="height: 70px">
             <div class="title">
