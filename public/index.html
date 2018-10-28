@@ -10,7 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
-
+  
   <script>
     // Initialize Firebase
     var config = {
@@ -31,6 +31,7 @@
     });
   </script>
   <style>
+
     .toolbaricon {
       padding-left: 5px;
       padding-bottom: 5px;
@@ -42,77 +43,6 @@
 
 
 <body>
-
-  <ons-splitter>
-    <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
-      <ons-page>
-        <ons-list>
-          <ons-list-item onclick="fn.load('tab1.html')" tappable>
-            Home
-          </ons-list-item>
-          <ons-list-item onclick="fn.load('tab2.html')" tappable>
-            Cards
-          </ons-list-item>
-          <ons-list-item onclick="fn.load('tab3.html')" tappable>
-            Settings
-          </ons-list-item>
-        </ons-list>
-      </ons-page>
-    </ons-splitter-side>
-    <ons-splitter-content>
-      <ons-navigator id="myNavigator" page="home.html"></ons-navigator>
-    </ons-splitter-content>
-  </ons-splitter>
-  <script>
-    window.fn = {};
-
-    window.fn.open = function () {
-      var menu = document.getElementById('menu');
-      menu.open();
-    };
-
-    window.fn.load = function (page) {
-      var menu = document.getElementById('menu');
-      var myNavigator = document.getElementById('myNavigator');
-
-      menu.close();
-      myNavigator.resetToPage(page, { animation: 'fade' });
-    };
-    window.fn = {};
-
-    window.fn.open = function () {
-      var menu = document.getElementById('menu');
-      menu.open();
-    };
-
-    window.fn.load = function (page) {
-      var menu = document.getElementById('menu');
-      var myNavigator = document.getElementById('myNavigator');
-
-      menu.close();
-      myNavigator.resetToPage(page, { animation: 'fade' });
-    };
-
-    document.addEventListener('init', function (event) {
-      if (event.target.id === 'pageNav1') {
-        var title = event.target.data && event.target.data.title ? event.target.data.title : 'Custom Page';
-        event.target.querySelector('ons-toolbar div.center').textContent = title;
-      }
-      if (event.target.id === 'pageNav2') {
-        var cardTitle = event.target.data && event.target.data.cardTitle ? event.target.data.cardTitle : 'Custom Card';
-        event.target.querySelector('ons-card div.title').textContent = cardTitle;
-      }
-    });
-
-    var customPush = function () {
-      myNavigator.pushPage('pageNav1.html', { data: { title: myNavigator.topPage.querySelector('ons-input').value } })
-    };
-
-    var customPush2 = function (event) {
-      myNavigator.pushPage('pageNav2.html', { data: { cardTitle: event.target.textContent } })
-    };
-  </script>
-
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -121,14 +51,13 @@
       </div>
       <div class="center" id="appname">#</div>
       <div class="right">
-        <ons-toolbar-button onclick="fn.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
+        <ons-icon class="toolbaricon" size="30px" icon="md-help">
+        </ons-icon>
       </div>
     </ons-toolbar>
 
     <ons-tabbar swipeable position="auto" id="tabbar">
-      <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
+      <ons-tab  page="tab1.html" label="Home" icon="ion-home, material:md-home" badge="7" active>
       </ons-tab>
       <ons-tab page="tab2.html" label="Cart" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
       </ons-tab>
@@ -228,18 +157,17 @@
 
   <template id="tab3.html">
     <ons-page id="Tab3">
-      <p style="text-align: center; margin-top: 10px;">
-        <ons-search-input placeholder="Search" onchange="ons.notification.alert('Searched for: ' + this.value)"></ons-search-input>
-      </p>
-      <hr>
-      <p>
-        <b>แบรนด์สุดฮิต</b> อัพเดทใหม่วันนี้</p>
-
-
-      <div id="allP"></div>
-
-
-      <script id="allP_template" type="text/template"> <ons-row>
+        <p style="text-align: center; margin-top: 10px;">
+            <ons-search-input placeholder="Search" onchange="ons.notification.alert('Searched for: ' + this.value)"></ons-search-input>
+          </p>
+          <hr>
+      <p><b>แบรนด์สุดฮิต</b> อัพเดทใหม่วันนี้</p>
+      
+      
+          <div id="allP"></div>
+        
+        
+       <script id="allP_template" type="text/template"> <ons-row>
       <% allP.forEach(function(allP){
         var item = allP.data();
         %>  
@@ -257,7 +185,7 @@
         <%});%>
       </script>
 
-      </ons-row>
+    </ons-row>
       <p style="text-align: center; margin: 10px;">
         <ons-button modifier="large" onclick="addNewData();">
           Add New Data
@@ -285,21 +213,21 @@
     } else if (event.index == 2) {
       var name = localStorage.getItem('name');
       console.log(name);
-      if (name == null) {
+      if(name == null){
         getAllproduct();
-      } else {
+      }else{
         getAllproduct(name);
-      } localStorage.clear();
+      }localStorage.clear();
       // get data for cart screen  
-
+      
     }
   });
 
   function changeTab(name) {
-    document.getElementById('tabbar').setActiveTab(2);
-    localStorage.setItem('name', name);
-
-  }
+  document.getElementById('tabbar').setActiveTab(2);
+  localStorage.setItem('name', name);
+  
+}
 
   function getHomeData() {
     var docRef = db.collection("UI").doc("home");
@@ -335,33 +263,32 @@
   }
 
   function getAllproduct(name) {
-    if (name == null) {
-      var allProductRef = db.collection("PRODUCTS")
-      allProductRef.get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          var allP_template = $('#allP_template').html();
-          console.log(querySnapshot);
-          var html = ejs.render(allP_template, { allP: querySnapshot.docs });
-
-          $('#allP').html(html);
-          console.log(doc.id, " => ", doc.data());
-        });
+   if(name==null){
+    var allProductRef = db.collection("PRODUCTS")
+    allProductRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var allP_template = $('#allP_template').html();
+      console.log(querySnapshot);
+      var html = ejs.render(allP_template, { allP: querySnapshot.docs });
+      
+      $('#allP').html(html);
+        console.log(doc.id, " => ", doc.data());
       });
-    } else {
-      localStorage.clear();
-      console.log(name);
-      var allProductRef = db.collection("PRODUCTS").where("category", "==", name)
-      allProductRef.get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          var allP_template = $('#allP_template').html();
-          console.log(querySnapshot);
-          var html = ejs.render(allP_template, { allP: querySnapshot.docs });
-
-          $('#allP').html(html);
-          console.log(doc.id, " => ", doc.data());
-        });
+    });
+  }else{localStorage.clear();
+    console.log(name);
+    var allProductRef = db.collection("PRODUCTS").where("category","==",name)
+    allProductRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var allP_template = $('#allP_template').html();
+      console.log(querySnapshot);
+      var html = ejs.render(allP_template, { allP: querySnapshot.docs });
+      
+      $('#allP').html(html);
+        console.log(doc.id, " => ", doc.data());
       });
-    }
+    });
+  }
   }
 
   function addNewData() {
