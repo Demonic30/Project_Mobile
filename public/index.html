@@ -265,7 +265,7 @@
         getAllproduct(name);
       } localStorage.clear();
       // get data for cart screen      
-    } 
+    }
   });
 
   function changeTab(name) {
@@ -337,49 +337,77 @@
     }
   }
 
-  function addNewData() {
-    var data = {
-      pid: '4',
-      title: 'iPhoneXS',
-      price: 50000,
-      category: 'electronic'
-    }
-    db.collection("PRODUCTS").add(data)
-      .then(function () {
-        console.log("Document successfully updated!");
+  var dataCart = [];
+  function addtocart(add2cart) {
+    localStorage.clear('quentinTarantino');
+    localStorage.setItem('quentinTarantino', add2cart);
+    var retrievedData = localStorage.getItem("quentinTarantino");
+    console.log(retrievedData);
+    dataCart.push(retrievedData);
+    alert(dataCart);
+  }
+
+  function getData2cart() {
+    console.log('functioncart');
+    console.log(dataCart);
+    document.getElementById('showDataCart').innerHTML = '';
+    dataCart.forEach(function (dataCart) {
+      var apr = db.collection("PRODUCTS").where("title", "==", dataCart);
+      apr.get().then(function (querySnapshot) {
+        console.log(querySnapshot.docs)
+        var cart_template = $('#cart_template').html();
+        var html = ejs.render(cart_template, { cartData: querySnapshot.docs });
+
+        $('#showDataCart').append(html);
+
       })
-      .catch(function (error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      });
 
-
+    })
   }
 
-  function getCartData() {
-    var docRef = db.collection("UI").doc("cart");
-
-    docRef.get().then(function (doc) {
-      if (doc.exists) {
-        console.log("Document data:", doc.data());
-        var data = doc.data();
-        $.getJSON('cart.json', function (data) {
-          console.log(data);
-        });
-
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    }).catch(function (error) {
-      console.log("Error getting document:", error);
-    });
+  // function addNewData() {
+  //   var data = {
+  //     pid: '4',
+  //     title: 'iPhoneXS',
+  //     price: 50000,
+  //     category: 'electronic'
+  //   }
+  //   db.collection("PRODUCTS").add(data)
+  //     .then(function () {
+  //       console.log("Document successfully updated!");
+  //     })
+  //     .catch(function (error) {
+  //       // The document probably doesn't exist.
+  //       console.error("Error updating document: ", error);
+  //     });
 
 
-    // $.getJSON('cart.json', function (data) {
-    //  console.log(data);
-    // });
-  }
+  // }
+
+  // function getCartData() {
+  //   var docRef = db.collection("UI").doc("cart");
+
+  //   docRef.get().then(function (doc) {
+  //     if (doc.exists) {
+  //       console.log("Document data:", doc.data());
+  //       var data = doc.data();
+  //       $.getJSON('cart.json', function (data) {
+  //         console.log(data);
+  //       });
+
+  //     } else {
+  //       // doc.data() will be undefined in this case
+  //       console.log("No such document!");
+  //     }
+  //   }).catch(function (error) {
+  //     console.log("Error getting document:", error);
+  //   });
+
+
+  //   // $.getJSON('cart.json', function (data) {
+  //   //  console.log(data);
+  //   // });
+  // }
 
   function showDetailP() {
     var dataproduct = localStorage.getItem('getDep');
