@@ -38,11 +38,15 @@
       padding-right: 5px;
       color: rgba(49, 137, 236, 0.685);
     }
+
+    * {
+      font-family: 'Righteous', cursive;
+    }
+
     body {
       background-color: rgb(190, 190, 190);
       background-repeat: no-repeat;
       background-size: cover;
-      font-family: 'Righteous', cursive;
     }
   </style>
 </head>
@@ -112,29 +116,37 @@
 
   <template id="tab2.html">
     <ons-page id="Tab2">
-      <ons-list>
-        <ons-list-header>Shopping Cart</ons-list-header>
-        <% categories.forEach(function(category){%>
+      <p>
+        <h5>
+          <b>Shopping Cart</b>
+        </h5>
+      </p>
+
+      <div id="showDataCart"></div>
+
+      <script id="cart_template" type="text/template">
+        <ons-list>
+          
+        <% cartData.forEach(function(cartData){
+            var cartData = cartData.data(); 
+          %>
           <ons-list-item>
             <div class="left">
-              <img class="list-item__thumbnail" src="<%= category.name %>">
+              <img class="list-item__thumbnail" src="<%=cartData.photo[0]%>">
             </div>
             <div class="center">
-              <span class="list-item__title">
-                <%= category.name %>
-              </span>
-              <span class="list-item__subtitle" style="color: blue">
-                <%= category.name %>
-              </span>
+              <span class="list-item__title"><%=cartData.title%></span>
+              <span class="list-item__subtitle" style="color: blue"><%=cartData.price%></span>
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
                 <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
               </p>
             </div>
-          </ons-list-item>
-          <%});%>
-      </ons-list>
+          </ons-list-item>    
+        </ons-list>
+        <%})%>
+      </script>
       <p style="text-align: center; margin: 10px;">
         <ons-button modifier="large">PROCEED TO PAY</ons-button>
       </p>
@@ -148,7 +160,7 @@
       </p>
       <hr>
       <p>
-        <b>&nbsp; แบรนด์สุดฮิต</b> อัพเดทใหม่วันนี้</p>
+        <b>&nbsp; ALL PRODUCTS</b> UPDATE NOW!!!</p>
 
 
       <div id="allP"></div>
@@ -159,26 +171,25 @@
       <% allP.forEach(function(allP){
         var item = allP.data();
         %>  
-        <ons-col width="33%" onclick="getDetail('<%=item.title%>');">
-          <ons-card>
-            <img src="<%=item.pic%>" alt="Onsen UI" style="width: 100%" style="height: 70px">
+        <ons-col width="50%" style=" border-radius: 10px; background-color: lightgrey;" onclick="getDetail('<%= item.title %>');">
+          <ons-card style="width:90%; height:90%;" >
             <div class="title">
-              <%=item.title%>
+              <center><%=item.title%></center>
             </div>
+            <center><img src="<%=item.pic%>" alt="Onsen UI" style="width:120px; height:120px;"></center>
             <div class="content" id="Pdetail">
               Price: <%= item.price %>
             </div>
+            <div class="content">
+              category: <%= item.category %>
+              </div>
           </ons-card>
         </ons-col>
         <%});%>
       </script>
 
-      </ons-row></script>
-      <p style="text-align: center; margin: 10px;">
-        <ons-button modifier="large" onclick="addNewData();">
-          Add New Data
-        </ons-button>
-      </p>
+      </ons-row>
+      </script>
 
     </ons-page>
   </template>
@@ -201,17 +212,13 @@
       <script id="Detailproduct_template" type="text/template">
             <ons-card>
                 <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
-                  
-                      <ons-carousel-item id="carousel1DeP" style="background: url('images/1.jpg') no-repeat center; background-size: contain;">
-                      </ons-carousel-item>
-                      <ons-carousel-item id="carousel2DeP" style="background: url('images/2.jpg') no-repeat center; background-size: contain;">
-                      </ons-carousel-item>
-                      <ons-carousel-item id="carousel3DeP" style="background: url('images/3.jpg') no-repeat center; background-size: contain;">
+                  <% dataDep.forEach(function(dataDep){   
+                    var data = dataDep.data(); %>
+                      <ons-carousel-item id="carousel1DeP" style="background: url('<%=data.pic%>') no-repeat center; background-size: contain;">
                       </ons-carousel-item>
         
                </ons-carousel>
-                    <% dataDep.forEach(function(dataDep){   
-                      var data = dataDep.data(); %>
+                  
                 <div class="title">
                   <%= data.price%>
                 </div>
@@ -226,11 +233,10 @@
                     <ons-list-item>React</ons-list-item>
                   </ons-list>
                 </div>
+                <ons-button onclick="addtocart('<%= data.title %>')">ADD TO CART</ons-button>
                 <%})%>
               </ons-card>
-              <!-- <ons-button onclick="addnewdata()">
-                  ADD DATA
-                </ons-button> -->
+              
          </script>
 
     </ons-page>
@@ -331,36 +337,6 @@
     }
   }
 
-  function getDetail(name) {
-    if (name == null) {
-      var allProductRef = db.collection("PRODUCTS")
-      allProductRef.get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          var allP_template = $('#allP_template').html();
-          console.log(querySnapshot);
-          var html = ejs.render(allP_template, { allP: querySnapshot.docs });
-
-          $('#allP').html(html);
-          console.log(doc.id, " => ", doc.data());
-        });
-      });
-    } else {
-      localStorage.clear();
-      console.log(name);
-      var allProductRef = db.collection("PRODUCTS").where("category", "==", name)
-      allProductRef.get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          var allP_template = $('#allP_template').html();
-          console.log(querySnapshot);
-          var html = ejs.render(allP_template, { allP: querySnapshot.docs });
-
-          $('#allP').html(html);
-          console.log(doc.id, " => ", doc.data());
-        });
-      });
-    }
-  }
-
   function addNewData() {
     var data = {
       pid: '4',
@@ -407,7 +383,7 @@
 
   function showDetailP() {
     var dataproduct = localStorage.getItem('getDep');
-    var apr = db.collection("Products").where("title", "==", dataproduct);
+    var apr = db.collection("PRODUCTS").where("title", "==", dataproduct);
     apr.get().then(function (querySnapshot) {
       var Detailproduct_template = $('#Detailproduct_template').html();
       var html = ejs.render(Detailproduct_template, { dataDep: querySnapshot.docs });
