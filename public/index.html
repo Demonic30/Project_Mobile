@@ -154,13 +154,14 @@
       <div id="allP"></div>
 
 
-      <script id="allP_template" type="text/template"> <ons-row>
+      <script id="allP_template" type="text/template">
+         <ons-row>
       <% allP.forEach(function(allP){
         var item = allP.data();
         %>  
         <ons-col width="33%" onclick="getDetail('<%=item.title%>');">
           <ons-card>
-            <img src="" alt="Onsen UI" style="width: 100%" style="height: 70px">
+            <img src="<%=item.pic%>" alt="Onsen UI" style="width: 100%" style="height: 70px">
             <div class="title">
               <%=item.title%>
             </div>
@@ -172,7 +173,7 @@
         <%});%>
       </script>
 
-      </ons-row>
+      </ons-row></script>
       <p style="text-align: center; margin: 10px;">
         <ons-button modifier="large" onclick="addNewData();">
           Add New Data
