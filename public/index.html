@@ -204,13 +204,18 @@
         <div class="left">
           <ons-back-button>Back</ons-back-button>
         </div>
-        <div class="center">Detail</div>
+        <div class="center">
+         
+            <b>&nbsp;Details Product</b>
+         
+        </div>
       </ons-toolbar>
 
       <div id="showDep"></div>
 
       <script id="Detailproduct_template" type="text/template">
             <ons-card>
+                
                 <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
                   <% dataDep.forEach(function(dataDep){   
                     var data = dataDep.data(); %>
@@ -221,7 +226,7 @@
                   <ons-list>
                     <ons-list-header>Title: <%= data.title %></ons-list-header>
                     <ons-list-item>Prise: <%= data.price %> ฿</ons-list-item>
-                    <ons-list-item><%= data.category %></ons-list-item>
+                    <ons-list-item>Category: <%= data.category %></ons-list-item>
                   </ons-list>
                 </div>
                 <br>
@@ -255,14 +260,14 @@
       console.log(name);
       if (name == null && item == null) {
         getAllproduct();
-      } else if(name != null && item == null) {
+      } else if (name != null && item == null) {
         getAllproduct(name);
-      } else{
+      } else {
 
       }
       localStorage.clear();
       // get data for cart screen      
-    } 
+    }
   });
 
   function changeTab(name) {
@@ -296,7 +301,7 @@
 
   }
 
-  function getAllproduct(name,item) {
+  function getAllproduct(name, item) {
     if (name == null) {
       var allProductRef = db.collection("PRODUCTS")
       allProductRef.get().then(function (querySnapshot) {
