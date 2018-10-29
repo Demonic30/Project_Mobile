@@ -312,7 +312,7 @@
     // });
   }
 
-  function getAllproduct(name) {
+  function getAllproduct(name,item) {
     if (name == null) {
       var allProductRef = db.collection("PRODUCTS")
       allProductRef.get().then(function (querySnapshot) {
