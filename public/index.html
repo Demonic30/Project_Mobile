@@ -258,14 +258,16 @@
       getData2cart()
     } else if (event.index == 2) {
       var name = localStorage.getItem('name');
+      var item = localStorage.getItem('items');
       console.log(name);
       if (name == null) {
         getAllproduct();
-      } else {
+      } else if(name != null && item == null) {
         getAllproduct(name);
-      } localStorage.clear();
+      } 
+      localStorage.clear();
       // get data for cart screen      
-    }
+    } 
   });
 
   function changeTab(name) {
