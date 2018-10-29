@@ -247,6 +247,7 @@
 
 <script>
   getHomeData();
+  tatol();
   document.addEventListener('prechange', function (event) {
     if (event.index == 0) {
       console.log('Home clicked');
@@ -260,11 +261,13 @@
       var name = localStorage.getItem('name');
       var item = localStorage.getItem('items');
       console.log(name);
-      if (name == null) {
+      if (name == null && item == null) {
         getAllproduct();
       } else if(name != null && item == null) {
         getAllproduct(name);
-      } 
+      } else{
+
+      }
       localStorage.clear();
       // get data for cart screen      
     } 
