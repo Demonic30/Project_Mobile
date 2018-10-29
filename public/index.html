@@ -255,7 +255,7 @@
     } else if (event.index == 1) {
       console.log('Cart clicked');
       // get data for cart screen  
-      getCartData();
+      getData2cart()
     } else if (event.index == 2) {
       var name = localStorage.getItem('name');
       console.log(name);
@@ -265,7 +265,7 @@
         getAllproduct(name);
       } localStorage.clear();
       // get data for cart screen      
-    }
+    } 
   });
 
   function changeTab(name) {
