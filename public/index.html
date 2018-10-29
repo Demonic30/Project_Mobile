@@ -136,7 +136,7 @@
             </div>
             <div class="center">
               <span class="list-item__title"><%=cartData.title%></span>
-              <span class="list-item__subtitle" style="color: blue"><%=cartData.price%></span>
+              <span class="list-item__subtitle" style="color: blue"><%=cartData.price%>฿</span>
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
@@ -178,7 +178,7 @@
             </div>
             <center><img src="<%=item.pic%>" alt="Onsen UI" style="width:120px; height:120px;"></center>
             <div class="content" id="Pdetail">
-              Price: <%= item.price %>
+              Price: <%= item.price %> ฿
             </div>
             <div class="content">
               category: <%= item.category %>
@@ -218,21 +218,13 @@
                       </ons-carousel-item>
         
                </ons-carousel>
-                  
-                <div class="title">
-                  <%= data.price%>
-                </div>
-                <div class="content">
-                  <div>
-                    <%= data.title %>
-                  </div>
                   <ons-list>
-                    <ons-list-header>Bindings</ons-list-header>
-                    <ons-list-item>Vue</ons-list-item>
-                    <ons-list-item>Angular</ons-list-item>
-                    <ons-list-item>React</ons-list-item>
+                    <ons-list-header>Title: <%= data.title %></ons-list-header>
+                    <ons-list-item>Prise: <%= data.price %> ฿</ons-list-item>
+                    <ons-list-item><%= data.category %></ons-list-item>
                   </ons-list>
                 </div>
+                <br>
               <center><ons-button onclick="addtocart('<%= data.title %>')">ADD TO CART</ons-button></center>
                 <%})%>
               </ons-card>
