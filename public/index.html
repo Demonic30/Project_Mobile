@@ -44,6 +44,10 @@
     #bardown {
       background-color: rgb(0, 0, 0);
     }
+    #textP{
+      color: brown;
+      font-size: 18px;
+    }
 
     .toolbaricon {
       padding-left: 5px;
@@ -83,7 +87,7 @@
       <ons-tabbar swipeable position="auto" id="tabbar">
         <ons-tab id="bardown" page="tab1.html" label="Home" icon="ion-home, material:md-home" active>
         </ons-tab>
-        <ons-tab class="alertcart" id="bardown" page="tab2.html" label="Cart" icon="fa-shopping-cart" badge="" active-icon="fa-shopping-cart">
+        <ons-tab class="alertcart" id="bardown" page="alert-dialog.html" label="Cart" icon="fa-shopping-cart" badge="" active-icon="fa-shopping-cart">
         </ons-tab>
         <ons-tab id="bardown" page="tab3.html" label="Products" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
         </ons-tab>
@@ -128,8 +132,8 @@
     </ons-page>
   </template>
 
-  <template id="tab2.html">
-    <ons-page class="temback" id="Tab2">
+  <template id="alert-dialog.html">
+    <ons-page class="temback" id="alert-dialog.html">
       <ons-list-header>
         <center>
           <h5>
@@ -155,7 +159,7 @@
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
-                <ons-icon style="color: skyblue" size="30px" icon="md-delete" onclick="delitem(<%=numitem%>); delprice('<%= data.price %>'); createAlertDialog()"></ons-icon>
+                <ons-icon style="color: skyblue" size="30px" icon="md-delete" onclick="delitem(<%=numitem%>); delprice('<%= cartData.price %>'); createAlertDialog();"></ons-icon>
               </p>
             </div>
           </ons-list-item>    
