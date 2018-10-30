@@ -87,7 +87,7 @@
       <ons-tabbar swipeable position="auto" id="tabbar">
         <ons-tab id="bardown" page="tab1.html" label="Home" icon="ion-home, material:md-home" active>
         </ons-tab>
-        <ons-tab class="alertcart" id="bardown" page="alert-dialog.html" label="Cart" icon="fa-shopping-cart" badge="" active-icon="fa-shopping-cart">
+        <ons-tab class="alertcart" id="bardown" page="tab2.html" label="Cart" icon="fa-shopping-cart" badge="" active-icon="fa-shopping-cart">
         </ons-tab>
         <ons-tab id="bardown" page="tab3.html" label="Products" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
         </ons-tab>
@@ -132,8 +132,8 @@
     </ons-page>
   </template>
 
-  <template id="alert-dialog.html">
-    <ons-page class="temback" id="alert-dialog.html">
+  <template id="tab2.html" >
+    <ons-page class="temback" id="Tab2">
       <ons-list-header>
         <center>
           <h5>
@@ -370,20 +370,20 @@
   }
   var priceitem = 0;
 
-  function totalprice(price) {
-    var price1 = parseInt(price, 10)
+  function totalprice(price1) {
+    var price1 = parseInt(price1, 10)
     console.log(price1);
 
     priceitem = priceitem + price1;
     $('#showprice').html("<p><b>&nbsp; Total Price is : </b>" + priceitem + " ฿</p>");
 
   }
-  function delprice(price) {
-    var price2 = parseInt(price, 10)
+  function delprice(price2) {
+    var price2 = parseInt(price2, 10)
     console.log(price2);
 
-    var priceitem1 = priceitem - price2;
-    $('#showprice').html("<p><b>&nbsp; Total Price is : </b>" + priceitem1 + " ฿</p>");
+    priceitem = priceitem - price2;
+    $('#showprice').html("<p><b>&nbsp; Total Price is : </b>" + priceitem + " ฿</p>");
 
   }
 
