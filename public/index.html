@@ -33,7 +33,7 @@
   </script>
   <style>
     #appname {
-      font: bold 100px;
+      font-size:20px;
       color: rgba(49, 137, 236, 0.685);
     }
 
@@ -41,7 +41,7 @@
       padding-left: 5px;
       padding-bottom: 5px;
       padding-right: 5px;
-
+      color: rgba(49, 137, 236, 0.685);
     }
 
     * {
@@ -124,15 +124,15 @@
       <p>
         <center>
           <h5>
-            <b>Shopping Cart</b>
+            <ons-list-header>Shopping Cart</ons-list-header>
           </h5>
         </center>
       </p>
-
+<ons-list>
       <div id="showDataCart"></div>
 
       <script id="cart_template" type="text/template">
-        <ons-list>
+        
           
         <% cartData.forEach(function(cartData){
             var cartData = cartData.data(); 
@@ -147,18 +147,20 @@
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
-                <ons-icon style="color: grey" size="30px" icon="md-delete"></ons-icon>
+                <ons-icon style="color: skyblue" size="30px" icon="md-delete"></ons-icon>
               </p>
             </div>
           </ons-list-item>    
-        </ons-list>
+        
         <%})%>
       </script>
+    </ons-list>
       <p style="text-align: center; margin: 10px;">
         <ons-button modifier="large">PROCEED TO PAY</ons-button>
       </p>
     </ons-page>
   </template>
+
 
   <template id="tab3.html">
     <ons-page id="Tab3">
@@ -183,7 +185,7 @@
             <div class="title">
               <center><%=item.title%></center>
             </div>
-            <center><img src="<%=item.pic%>" alt="Onsen UI" style="width:120px; height:120px;"></center>
+            <center><img src="<%= item.pic %>" alt="Onsen UI" style="width:120px; height:120px;"></center>
             <div class="content" id="Pdetail">
               Price: <%= item.price %> ฿
             </div>
