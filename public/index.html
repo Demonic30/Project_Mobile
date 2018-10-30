@@ -33,7 +33,7 @@
   </script>
   <style>
     #appname {
-      font-size:20px;
+      font-size: 20px;
       color: rgba(49, 137, 236, 0.685);
     }
 
@@ -121,18 +121,16 @@
 
   <template id="tab2.html">
     <ons-page id="Tab2">
-      <p>
+      <ons-list-header>
         <center>
           <h5>
-            <ons-list-header>Shopping Cart</ons-list-header>
+            <b>Shopping Cart</b>
           </h5>
         </center>
-      </p>
-<ons-list>
-      <div id="showDataCart"></div>
-
-      <script id="cart_template" type="text/template">
-        
+      </ons-list-header>
+      <ons-list>
+        <div id="showDataCart"></div>
+        <script id="cart_template" type="text/template">
           
         <% cartData.forEach(function(cartData){
             var cartData = cartData.data(); 
@@ -154,7 +152,7 @@
         
         <%})%>
       </script>
-    </ons-list>
+      </ons-list>
       <p style="text-align: center; margin: 10px;">
         <ons-button modifier="large">PROCEED TO PAY</ons-button>
       </p>
