@@ -452,8 +452,14 @@
   }
 
 function delitem(numitem){
+  ons.notification.confirm('Confirm!')
 var remove = dataCart.splice(numitem,1)
 getData2cart()
+if(dataCart.length == 0){
+  $('.alertcart').attr('badge', "");
+}else{
+  $('.alertcart').attr('badge', dataCart.length);
+}
 }
 
 </script>
