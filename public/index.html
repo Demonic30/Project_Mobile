@@ -335,16 +335,15 @@
 
   var dataCart = [];
   function addtocart(add2cart) {
-    localStorage.clear('quentinTarantino');
-    localStorage.setItem('quentinTarantino', add2cart);
-    var retrievedData = localStorage.getItem("quentinTarantino");
+    localStorage.clear('itemdata');
+    localStorage.setItem('itemdata', add2cart);
+    var retrievedData = localStorage.getItem("itemdata");
     console.log(retrievedData);
     dataCart.push(retrievedData);
     alert(dataCart);
   }
 
   function getData2cart() {
-    console.log('functioncart');
     console.log(dataCart);
     document.getElementById('showDataCart').innerHTML = '';
     dataCart.forEach(function (dataCart) {
@@ -396,7 +395,7 @@
     document.getElementById('tabbar').setActiveTab(2);
 
   }
-  const data = []
+  const data = [];
 
   function runArray() {
     console.log(search);
