@@ -90,6 +90,7 @@
 
   <template  id="tab1.html">
     <ons-page class="temback" id="Tab1">
+    
       <p style="text-align: center; margin-top: 10px;">
         <ons-search-input placeholder="Search" onchange="search(this.value)"></ons-search-input>
       </p>
@@ -108,11 +109,11 @@
       <script id="icon_template" type="text/template">
         <ons-row style="height:120px" vertical-align="center">  
         <% categories.forEach(function(category){%>  
-        <ons-col style="border:solid 1px white; border-bottom: 6px solid red; border-radius: 10px; background-color: lightgrey; background:#006666;" width="33%"  onclick="changeTab('<%= category.name %>')">
-          <p  style="text-align: center; margin: 10px;">
+        <ons-col style="border:solid 1px white; border-bottom: 6px solid red; border-radius: 10px; background-color: black;" width="33%"  onclick="changeTab('<%= category.name %>')">
+          <p  style="text-align: center; margin: 10px; color:rgb(0, 162, 255);">
             <ons-icon size="60px" icon="<%= category.icon %>"></ons-icon>
           </p>
-          <p style="text-align: center; margin: 10px;" id="icon1_text">
+          <p style="text-align: center; margin: 10px; color:rgb(0, 162, 255);" id="icon1_text">
             <%= category.name %>
           </p>
         </ons-col>
