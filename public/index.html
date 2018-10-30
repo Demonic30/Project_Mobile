@@ -155,18 +155,25 @@
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
-                <ons-icon style="color: skyblue" size="30px" icon="md-delete" onclick="delitem(<%=numitem%>)"></ons-icon>
+                <ons-icon style="color: skyblue" size="30px" icon="md-delete" onclick="delitem(<%=numitem%>); delprice('<%= data.price %>'); createAlertDialog()"></ons-icon>
               </p>
             </div>
           </ons-list-item>    
-        
+        <ons-alert-dialog id="my-alert-dialog" modifier="rowfooter">
+      <div class="alert-dialog-title">Please Confirm</div>
+      <div class="alert-dialog-content">
+        Would you like to delete the item?
+      </div>
+    </ons-alert-dialog>
         <%})%>
       </script>
+
       </ons-list>
       <p style="text-align: center; margin: 10px;">
         <ons-button modifier="large">PROCEED TO PAY</ons-button>
       </p>
     </ons-page>
+    
   </template>
 
 
@@ -327,7 +334,7 @@
         });
       });
     } else {
-      $('#textP').html("<p><b>&nbsp; You select product by category : </b>"+name+" </p>")
+      $('#textP').html("<p><b>&nbsp; You select product by category : </b>" + name + " </p>")
       localStorage.clear();
       console.log(name);
       var allProductRef = db.collection("PRODUCTS").where("category", "==", name)
@@ -352,19 +359,27 @@
     var retrievedData = localStorage.getItem("itemdata");
     console.log(retrievedData);
     dataCart.push(retrievedData);
-    ons.notification.toast('Add "'+ retrievedData +'" To Cart!', {timeout: 2000});
+    ons.notification.toast('Add "' + retrievedData + '" To Cart!', { timeout: 2000 });
     $('.alertcart').attr('badge', dataCart.length);
     console.log(dataCart.length);
-    
+
   }
   var priceitem = 0;
-  
-  function totalprice(price){
+
+  function totalprice(price) {
     var price1 = parseInt(price, 10)
     console.log(price1);
-    
+
     priceitem = priceitem + price1;
-     $('#showprice').html("<p><b>&nbsp; Total Price is : </b>"+priceitem+" ฿</p>"); 
+    $('#showprice').html("<p><b>&nbsp; Total Price is : </b>" + priceitem + " ฿</p>");
+
+  }
+  function delprice(price) {
+    var price2 = parseInt(price, 10)
+    console.log(price2);
+
+    var priceitem1 = priceitem - price2;
+    $('#showprice').html("<p><b>&nbsp; Total Price is : </b>" + priceitem1 + " ฿</p>");
 
   }
 
@@ -377,8 +392,8 @@
       apr.get().then(function (querySnapshot) {
         console.log(querySnapshot.docs)
         var cart_template = $('#cart_template').html();
-        var html = ejs.render(cart_template, { cartData: querySnapshot.docs,numitem: numitem });
-          numitem ++
+        var html = ejs.render(cart_template, { cartData: querySnapshot.docs, numitem: numitem });
+        numitem++
 
         $('#showDataCart').append(html);
 
@@ -386,7 +401,6 @@
 
     })
   }
-
 
   function showDetailP() {
     var dataproduct = localStorage.getItem('getDep');
@@ -444,23 +458,36 @@
       var html = ejs.render(allP_template, { allP: title });
       $('#allP').html(html);
     } else {
-      $('#textP').html("<p><b>&nbsp; Number Of Product is : </b>"+title.length+" By search</p>")
+      $('#textP').html("<p><b>&nbsp; Number Of Product is : </b>" + title.length + " By search</p>")
       var allP_template = $('#allP_template').html();
       var html = ejs.render(allP_template, { allP: title });
       $('#allP').html(html);
     }
   }
 
-function delitem(numitem){
-  ons.notification.confirm('Confirm!')
-var remove = dataCart.splice(numitem,1)
-getData2cart()
-if(dataCart.length == 0){
-  $('.alertcart').attr('badge', "");
-}else{
-  $('.alertcart').attr('badge', dataCart.length);
-}
-}
+  function delitem(numitem) {
+
+    var remove = dataCart.splice(numitem, 1)
+    getData2cart()
+    if (dataCart.length == 0) {
+      $('.alertcart').attr('badge', "");
+    } else {
+      $('.alertcart').attr('badge', dataCart.length);
+    }
+  }
+
+  var createAlertDialog = function () {
+    var dialog = document.getElementById('my-alert-dialog');
+
+    if (dialog) {
+      dialog.show();
+    } else {
+      ons.createElement('alert-dialog.html', { append: true })
+        .then(function (dialog) {
+          dialog.show();
+        });
+    }
+  };
 
 </script>
 
