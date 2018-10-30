@@ -44,7 +44,8 @@
     #bardown {
       background-color: rgb(0, 0, 0);
     }
-    #textP{
+
+    #textP {
       color: brown;
       font-size: 18px;
     }
@@ -132,7 +133,7 @@
     </ons-page>
   </template>
 
-  <template id="tab2.html" >
+  <template id="tab2.html">
     <ons-page class="temback" id="Tab2">
       <ons-list-header>
         <center>
@@ -159,8 +160,10 @@
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
+                <ons-button onclick="showConfirm()">
                 <ons-icon style="color: skyblue" size="30px" icon="md-delete" onclick="delitem(<%=numitem%>); delprice('<%= cartData.price %>');"></ons-icon>
-              </p>
+              </ons-button> 
+            </p>
             </div>
           </ons-list-item>    
         <ons-alert-dialog id="my-alert-dialog" modifier="rowfooter">
@@ -177,7 +180,7 @@
         <ons-button modifier="large">PROCEED TO PAY</ons-button>
       </p>
     </ons-page>
-    
+
   </template>
 
 
@@ -479,7 +482,9 @@
       $('.alertcart').attr('badge', dataCart.length);
     }
   }
-
+  var showConfirm = function() {
+  ons.notification.confirm('Confirm!')
+};
 
 </script>
 
