@@ -159,7 +159,7 @@
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
-                <ons-icon style="color: skyblue" size="30px" icon="md-delete" onclick="delitem(<%=numitem%>); delprice('<%= cartData.price %>'); createAlertDialog();"></ons-icon>
+                <ons-icon style="color: skyblue" size="30px" icon="md-delete" onclick="delitem(<%=numitem%>); delprice('<%= cartData.price %>');"></ons-icon>
               </p>
             </div>
           </ons-list-item>    
@@ -480,18 +480,6 @@
     }
   }
 
-  var createAlertDialog = function () {
-    var dialog = document.getElementById('my-alert-dialog');
-
-    if (dialog) {
-      dialog.show();
-    } else {
-      ons.createElement('alert-dialog.html', { append: true })
-        .then(function (dialog) {
-          dialog.show();
-        });
-    }
-  };
 
 </script>
 
