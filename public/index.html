@@ -10,7 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 
   <script>
     // Initialize Firebase
@@ -58,7 +58,7 @@
     }
 
     * {
-      font-family: 'ABeeZee', sans-serif;
+      font-family: 'Righteous', cursive;
     }
 
     .temback {
@@ -71,7 +71,7 @@
 
 
 <body>
-  <ons-navigator swipeable id="Navigatorme">
+  <ons-navigator swipeable id="myNavigator">
     <ons-page>
       <ons-toolbar id="barup">
         <div class="left">
@@ -143,9 +143,9 @@
         </center>
       </ons-list-header>
       <ons-list>
-        <div id="Cartshow"></div>
+        <div id="showDataCart"></div>
         <div id="showprice"></div>
-        <script id="tab2_template" type="text/template">
+        <script id="cart_template" type="text/template">
           
         <% cartData.forEach(function(cartData){
             var cartData = cartData.data(); 
@@ -406,13 +406,13 @@
   function getData2cart() {
     var numitem = 0;
     console.log(dataCart);
-    document.getElementById('Cartshow').innerHTML = '';
+    document.getElementById('showDataCart').innerHTML = '';
     dataCart.forEach(function (dataCart) {
       var apr = db.collection("PRODUCTS").where("title", "==", dataCart);
       apr.get().then(function (querySnapshot) {
         console.log(querySnapshot.docs)
-        var tab2_template = $('#tab2_template').html();
-        var html = ejs.render(tab2_template, { cartData: querySnapshot.docs, numitem: numitem });
+        var cart_template = $('#cart_template').html();
+        var html = ejs.render(cart_template, { cartData: querySnapshot.docs, numitem: numitem });
         numitem++
 
         $('#showDataCart').append(html);
@@ -436,7 +436,7 @@
   function getDetail(getDep) {
     localStorage.setItem("getDep", getDep)
     showDetailP();
-    Navigatorme.pushPage('detailP.html');
+    myNavigator.pushPage('detailP.html');
 
   }
 
