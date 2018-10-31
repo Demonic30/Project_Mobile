@@ -10,7 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=ABeeZee" rel="stylesheet">
 
   <script>
     // Initialize Firebase
@@ -58,7 +58,7 @@
     }
 
     * {
-      font-family: 'Righteous', cursive;
+      font-family: 'ABeeZee', sans-serif;
     }
 
     .temback {
@@ -71,7 +71,7 @@
 
 
 <body>
-  <ons-navigator swipeable id="myNavigator">
+  <ons-navigator swipeable id="Navigatorme">
     <ons-page>
       <ons-toolbar id="barup">
         <div class="left">
@@ -143,9 +143,9 @@
         </center>
       </ons-list-header>
       <ons-list>
-        <div id="showDataCart"></div>
+        <div id="Cartshow"></div>
         <div id="showprice"></div>
-        <script id="cart_template" type="text/template">
+        <script id="tab2_template" type="text/template">
           
         <% cartData.forEach(function(cartData){
             var cartData = cartData.data(); 
@@ -354,7 +354,7 @@
         });
       });
     } else {
-      $('#textP').html("<p><b>&nbsp; You select product by category : </b>" + name + " </p>")
+      $('#textP').html("<p><b>&nbsp; You Select Product By Category : </b>" + name + " </p>")
       localStorage.clear();
       console.log(name);
       var allProductRef = db.collection("PRODUCTS").where("category", "==", name)
@@ -379,7 +379,7 @@
     var retrievedData = localStorage.getItem("itemdata");
     console.log(retrievedData);
     dataCart.push(retrievedData);
-    ons.notification.toast('Add "' + retrievedData + '" To Cart!', { timeout: 2000 });
+    ons.notification.toast('Add "' + retrievedData + '" To Cart Success !!!', { timeout: 2000 });
     $('.alertcart').attr('badge', dataCart.length);
     console.log(dataCart.length);
 
@@ -391,7 +391,7 @@
     console.log(price1);
 
     priceitem = priceitem + price1;
-    $('#showprice').html("<p><b>&nbsp; Total Price is : </b>" + priceitem + " ฿</p>");
+    $('#showprice').html("<p><b>&nbsp; Total Price Is : </b>" + priceitem + " ฿</p>");
 
   }
   function delprice(price2) {
@@ -399,20 +399,20 @@
     console.log(price2);
 
     priceitem = priceitem - price2;
-    $('#showprice').html("<p><b>&nbsp; Total Price is : </b>" + priceitem + " ฿</p>");
+    $('#showprice').html("<p><b>&nbsp; Total Price Is : </b>" + priceitem + " ฿</p>");
 
   }
 
   function getData2cart() {
     var numitem = 0;
     console.log(dataCart);
-    document.getElementById('showDataCart').innerHTML = '';
+    document.getElementById('Cartshow').innerHTML = '';
     dataCart.forEach(function (dataCart) {
       var apr = db.collection("PRODUCTS").where("title", "==", dataCart);
       apr.get().then(function (querySnapshot) {
         console.log(querySnapshot.docs)
-        var cart_template = $('#cart_template').html();
-        var html = ejs.render(cart_template, { cartData: querySnapshot.docs, numitem: numitem });
+        var tab2_template = $('#tab2_template').html();
+        var html = ejs.render(tab2_template, { cartData: querySnapshot.docs, numitem: numitem });
         numitem++
 
         $('#showDataCart').append(html);
@@ -436,7 +436,7 @@
   function getDetail(getDep) {
     localStorage.setItem("getDep", getDep)
     showDetailP();
-    myNavigator.pushPage('detailP.html');
+    Navigatorme.pushPage('detailP.html');
 
   }
 
