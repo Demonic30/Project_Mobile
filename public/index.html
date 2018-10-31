@@ -473,12 +473,12 @@
 
   function test(title) {
     if (title.length == 0) {
-      $('#textP').html("<p><b>&nbsp;There is no Product you search !!!</b></p>")
+      $('#textP').html("<p><b>&nbsp;There Is Not Product From You Search !!!</b></p>")
       var allP_template = $('#allP_template').html();
       var html = ejs.render(allP_template, { allP: title });
       $('#allP').html(html);
     } else {
-      $('#textP').html("<p><b>&nbsp; Number Of Product is : </b>" + title.length + " By search</p>")
+      $('#textP').html("<p><b>&nbsp; Number Of Product Is : </b>" + title.length + " From Search</p>")
       var allP_template = $('#allP_template').html();
       var html = ejs.render(allP_template, { allP: title });
       $('#allP').html(html);
@@ -496,7 +496,7 @@
     }
   }
   var showAlert = function() {
-  ons.notification.alert('You have finished the product !!!');
+  ons.notification.alert('You Have Finished The Product !!!');
 };
 
 </script>
