@@ -144,14 +144,14 @@
     <ons-page class="temback" id="Tab2">
       <ons-list-header>
         <center>
-          <h5>
+          <h4>
             <b>Shopping Cart</b>
-          </h5>
+          </h4>
         </center>
       </ons-list-header>
       <ons-list>
         <div id="showDataCart"></div>
-        <div id="showprice"></div>
+        <div id="showprice" style="color: rgb(38, 255, 0);"></div>
         <script id="cart_template" type="text/template">
           
         <% cartData.forEach(function(cartData){
@@ -261,7 +261,7 @@
       <div id="showDep"></div>
 
       <script id="Detailproduct_template" type="text/template">
-            <ons-card style="border:solid 5px lightgrey; border-radius: 10px;">
+            <ons-card style="border:solid 5px lightgrey; border-radius: 10px; border-bottom: 10px solid rgb(0, 132, 255);">
                 
                 <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
                   <% dataDep.forEach(function(dataDep){   
@@ -443,7 +443,7 @@
     console.log(price1);
 
     priceitem = priceitem + price1;
-    $('#showprice').html("<p><b>&nbsp; Total Price Is : </b>" + priceitem + " ฿</p>");
+    $('#showprice').html("<center><p><b>&nbsp; Total Price Is : </b>" + priceitem + " ฿</p></center>");
 
   }
 
@@ -453,7 +453,7 @@
     console.log(price2);
 
     priceitem = priceitem - price2;
-    $('#showprice').html("<p><b>&nbsp; Total Price Is : </b>" + priceitem + " ฿</p>");
+    $('#showprice').html("<center><p><b>&nbsp; Total Price Is : </b>" + priceitem + " ฿</p></center>");
 
   }
 
@@ -503,14 +503,14 @@
   }
 
   // function search product
-  function search(search) {
+  function search(searchdata) {
 
     const filterItems = (needle, heystack) => {
       let query = needle.toLowerCase();
       return heystack.filter(item => item.data().title.toLowerCase().indexOf(needle) >= 0);
     }
-    console.log(filterItems(search, data));
-    var item = filterItems(search, data);
+    console.log(filterItems(searchdata, data));
+    var item = filterItems(searchdata, data);
     console.log(item)
     localStorage.setItem('items', item);
 
@@ -540,9 +540,16 @@
   function searchpro(title) {
     if (title.length == 0) {
       $('#textP').html("<p><b>&nbsp;There Is Not Product From You Search !!!</b></p>")
-      var allP_template = $('#allP_template').html();
-      var html = ejs.render(allP_template, { allP: title });
-      $('#allP').html(html);
+      var allProductRef = db.collection("PRODUCTS")
+      allProductRef.get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          var allP_template = $('#allP_template').html();
+          console.log(querySnapshot);
+          var html = ejs.render(allP_template, { allP: querySnapshot.docs });
+
+          $('#allP').html(html);
+        });
+      });
     } else {
       $('#textP').html("<p><b>&nbsp; Number Of Product Is : </b>" + title.length + " From Search</p>")
       var allP_template = $('#allP_template').html();
@@ -563,7 +570,7 @@
     }
   }
   var showAlert = function () {
-    ons.notification.alert('You Have Finished The Product !!!');
+    ons.notification.alert('You Have Successfully Deleted Your Product. !!!');
   };
 
 </script>
