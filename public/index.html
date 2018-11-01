@@ -67,7 +67,6 @@
       background-repeat: rgb(29, 29, 29);
       background-size: cover;
     }
-    
   </style>
 </head>
 
@@ -78,20 +77,20 @@
       <ons-toolbar id="barup">
         <div class="left">
           <a href="https://shopee-208a6.firebaseapp.com/?fbclid=IwAR3xmd7VbK8SYtTWxTPhvgXD4qpgOy56YXITvC6IFDWyX2NZKxoD6OC9AAY">
-          <ons-icon class="toolbaricon" size="30px" icon="fa-shopware">
-          </ons-icon>
-        </a>
+            <ons-icon class="toolbaricon" size="30px" icon="fa-shopware">
+            </ons-icon>
+          </a>
         </div>
         <div class="center" id="appname">#</div>
         <div class="right">
           <a href="https://www.facebook.com/coffaree.hahza">
-          <ons-icon class="toolbaricon" size="30px" icon="fa-facebook-square">
-          </ons-icon>
-        </a>
+            <ons-icon class="toolbaricon" size="30px" icon="fa-facebook-square">
+            </ons-icon>
+          </a>
         </div>
       </ons-toolbar>
 
-      <ons-tabbar swipeable position="auto" id="tabbar">
+      <ons-tabbar swipeable position="auto" id="tabslide">
         <ons-tab id="bardown" page="tab1.html" label="Home" icon="shipping-fast, material:md-home" active>
         </ons-tab>
         <ons-tab class="alertcart" id="bardown" page="tab2.html" label="Cart" icon="fa-shopping-basket" badge="" active-icon="fa-shopping-basket">
@@ -164,7 +163,7 @@
             </div>
             <div class="center">
               <span class="list-item__title"><%=cartData.title%></span>
-              <span class="list-item__subtitle" style="color: blue"><%=cartData.price%>฿</span>
+              <span class="list-item__subtitle" style="color: blue;"><%=cartData.price%>฿</span>
             </div>
             <div class="right">
               <p style="text-align: center; margin: 10px;">
@@ -219,7 +218,7 @@
         var item = allP.data();
         %>  
         
-        <ons-col width="50%" style="border:solid 3px white; border-radius: 10px; background-color: lightgrey;" onclick="getDetail('<%= item.title %>');"> 
+        <ons-col width="50%" style="border:solid 3px white; border-radius: 10px; background-color: lightgrey;" onclick="getproDetail('<%= item.title %>');"> 
          <ons-card style="width:90%; height:93%;" >
             <div class="title">
               <center><%=item.title%></center>
@@ -249,11 +248,11 @@
         var datadep = localStorage.getItem('getDep');
         console.log(datadep)
       </script>
-      <ons-toolbar>
+      <ons-toolbar id="bardown">
         <div class="left">
           <ons-back-button>Back</ons-back-button>
         </div>
-        <div class="center">
+        <div class="center" id="appname">
 
           <b>&nbsp;Details Product</b>
 
@@ -262,13 +261,17 @@
       <div id="showDep"></div>
 
       <script id="Detailproduct_template" type="text/template">
-            <ons-card>
+            <ons-card style="border:solid 5px lightgrey; border-radius: 10px;">
                 
                 <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
                   <% dataDep.forEach(function(dataDep){   
                     var data = dataDep.data(); %>
                       <ons-carousel-item id="carousel1DeP" style="background: url('<%=data.pic%>') no-repeat center; background-size: contain;">
                       </ons-carousel-item>
+                      <ons-carousel-item id="carousel1DeP" style="background: url('<%=data.pic%>') no-repeat center; background-size: contain;">
+                        </ons-carousel-item>
+                      <ons-carousel-item id="carousel1DeP" style="background: url('<%=data.pic%>') no-repeat center; background-size: contain;">
+                          </ons-carousel-item>
         
                </ons-carousel>
                   <ons-list>
@@ -278,7 +281,7 @@
                   </ons-list>
                 </div>
                 <br>
-              <center><ons-button onclick="addtocart('<%= data.title %>'); totalprice('<%= data.price %>');">ADD TO CART</ons-button></center>
+              <center><ons-button onclick="addprotocart('<%= data.title %>'); totalprice('<%= data.price %>');">ADD TO CART</ons-button></center>
                 <%})%>
               </ons-card>
               
@@ -287,12 +290,12 @@
     </ons-page>
   </template>
   <ons-modal direction="up">
-      <div style="text-align: center">
-        <p>
-          <ons-icon icon="md-spinner" size="28px" spin></ons-icon> Loading...
-        </p>
-      </div>
-    </ons-modal>
+    <div style="text-align: center">
+      <p>
+        <ons-icon icon="md-spinner" size="28px" spin></ons-icon> Loading...
+      </p>
+    </div>
+  </ons-modal>
 
 </body>
 
@@ -308,28 +311,28 @@
   document.addEventListener('prechange', function (event) {
     if (event.index == 0) {
       var modal = document.querySelector('ons-modal');
-    modal.show();
-    setTimeout(function () {
-      modal.hide();
-    }, 1000);
+      modal.show();
+      setTimeout(function () {
+        modal.hide();
+      }, 1000);
       console.log('Home clicked');
       // get data for home screen  
       getHomeData();
     } else if (event.index == 1) {
       var modal = document.querySelector('ons-modal');
-    modal.show();
-    setTimeout(function () {
-      modal.hide();
-    }, 1000);
+      modal.show();
+      setTimeout(function () {
+        modal.hide();
+      }, 1000);
       console.log('Cart clicked');
       // get data for cart screen  
-      getData2cart()
+      getprotocart()
     } else if (event.index == 2) {
       var modal = document.querySelector('ons-modal');
-    modal.show();
-    setTimeout(function () {
-      modal.hide();
-    }, 1000);
+      modal.show();
+      setTimeout(function () {
+        modal.hide();
+      }, 1000);
       var name = localStorage.getItem('name');
       var item = localStorage.getItem('items');
       console.log(name);
@@ -345,10 +348,10 @@
     }
   });
 
-// function change template
+  // function change template
   function changeTab(name) {
 
-    document.getElementById('tabbar').setActiveTab(2);
+    document.getElementById('tabslide').setActiveTab(2);
     localStorage.setItem('name', name);
     var modal = document.querySelector('ons-modal');
     modal.show();
@@ -357,7 +360,7 @@
     }, 1000);
   }
 
-// function for first template
+  // function for first template
   function getHomeData() {
 
     var docRef = db.collection("UI").doc("home");
@@ -383,7 +386,7 @@
 
   }
 
-// function get All product for second template 
+  // function get All product for second template 
   function getAllproduct(name, item) {
     if (name == null) {
       $('#textP').html("<p><b>&nbsp; All Products </b></p>");
@@ -416,10 +419,10 @@
     }
   }
 
-// function add product for cart 
+  // function add product for cart 
   var dataCart = [];
 
-  function addtocart(add2cart) {
+  function addprotocart(add2cart) {
 
     localStorage.clear('itemdata');
     localStorage.setItem('itemdata', add2cart);
@@ -432,7 +435,7 @@
 
   }
 
-// function get total price from cart
+  // function get total price from cart
   var priceitem = 0;
 
   function totalprice(price1) {
@@ -444,7 +447,7 @@
 
   }
 
-// funtion delete price form cart
+  // funtion delete price form cart
   function delprice(price2) {
     var price2 = parseInt(price2, 10)
     console.log(price2);
@@ -454,8 +457,8 @@
 
   }
 
-// function get data to cart
-  function getData2cart() {
+  // function get data to cart
+  function getprotocart() {
     var numitem = 0;
     console.log(dataCart);
     document.getElementById('showDataCart').innerHTML = '';
@@ -474,7 +477,7 @@
     })
   }
 
-// function show product details
+  // function show product details
   function showDetailP() {
     var dataproduct = localStorage.getItem('getDep');
     var apr = db.collection("PRODUCTS").where("title", "==", dataproduct);
@@ -486,8 +489,8 @@
 
   }
 
-//function get product details
-  function getDetail(getDep) {
+  //function get product details
+  function getproDetail(getDep) {
     var modal = document.querySelector('ons-modal');
     modal.show();
     setTimeout(function () {
@@ -499,7 +502,7 @@
 
   }
 
-// function search product
+  // function search product
   function search(search) {
 
     const filterItems = (needle, heystack) => {
@@ -511,13 +514,13 @@
     console.log(item)
     localStorage.setItem('items', item);
 
-    test(item);
+    searchpro(item);
 
-    document.getElementById('tabbar').setActiveTab(2);
+    document.getElementById('tabslide').setActiveTab(2);
 
   }
 
-// function run array from firebase
+  // function run array from firebase
   const data = [];
 
   function runArray() {
@@ -533,8 +536,8 @@
       })
   }
 
-//function show product from search
-  function test(title) {
+  //function show product from search
+  function searchpro(title) {
     if (title.length == 0) {
       $('#textP').html("<p><b>&nbsp;There Is Not Product From You Search !!!</b></p>")
       var allP_template = $('#allP_template').html();
@@ -548,11 +551,11 @@
     }
   }
 
-//funtion delete product from cart
+  //funtion delete product from cart
   function delitem(numitem) {
 
     var remove = dataCart.splice(numitem, 1)
-    getData2cart()
+    getprotocart()
     if (dataCart.length == 0) {
       $('.alertcart').attr('badge', "");
     } else {
